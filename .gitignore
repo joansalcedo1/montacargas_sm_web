@@ -1,0 +1,14 @@
+# Legacy packaged/zipped exports (huge, standalone.html exceeds GitHub's 100MB limit)
+Estibadores-SM-landing-standalone.html
+estibadores-sm-landing-desempaquetado.zip
+
+# Python virtual env (used only to run `python -m http.server` locally)
+.venv/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+
+# Local logs / temp files
+*.log
