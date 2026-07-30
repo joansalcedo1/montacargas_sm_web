@@ -50,11 +50,12 @@ function Services({ accent }) {
               Servicios integrales<br />
 
               para mover tu <span className="underline-amber">operación</span>.
+              
 
             </h2>
-
+            <span className="font-mono text-[16px] text-ink">Aliados estratégicos en soluciones para equipos de manejo de materiales</span>
           </div>
-
+          
         </div>
 
 
@@ -297,7 +298,7 @@ function Gallery({ accent }) {
 
         </div>
 
-{/*
+        {/*
 {marcas.map((m, i) => (
 
                 <li key={i} className="flex items-start gap-3 text-bone/85">
@@ -505,7 +506,7 @@ function CTA({ accent }) {
 
           </a>
 
-{/*
+          {/*
           <div className="mt-2 flex items-center gap-3 text-bone/55 text-[12.5px]">
 
             <Icon.Clock className="w-4 h-4" />
@@ -675,15 +676,16 @@ function WorkInAction({ accent }) {
   ];
 
   const marcas = [
-    ' Hyster',
+    'Hyster',
     'Caterpillar',
     'TCM',
     'Komatsu',
     'Yale',
     'Nissan',
     'Clark',
-    'Toyota'
-  ]
+    'Toyota',
+    'Todas las marcas chinas'
+  ];
 
 
   return (
@@ -744,6 +746,28 @@ function WorkInAction({ accent }) {
             </Reveal>
 
           ))}
+
+        </div>
+
+
+
+        <div className="mt-20 pt-10 border-t border-bone/10">
+
+          <div className="flex flex-wrap items-center gap-6 mb-8">
+            <span className="font-mono text-[11px] tracking-[0.3em] text-bone/50 uppercase shrink-0">Marcas que atendemos</span>
+            <span className="h-px flex-1 bg-bone/15"></span>
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            {marcas.map((marca, i) => (
+              <Reveal key={marca} delay={i * 40}>
+                <span className="inline-flex items-center gap-2.5 px-5 py-2.5 border border-bone/20 bg-bone/5 hover:bg-bone/10 transition-colors font-head text-lg tracking-wide uppercase">
+                  <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: accent }}></span>
+                  {marca}
+                </span>
+              </Reveal>
+            ))}
+          </div>
 
         </div>
 
