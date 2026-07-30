@@ -1,0 +1,93 @@
+HERO SECTION:
+
+En el hero el marco de la foto que es blanco, no va 
+los espacios en negro de la foto no van. Se debe notar unicamente
+el fondo. 
+
+La leyenda quedaria unicamente como "servicio tecnico especializado" 
+
+"operando en el valle del cauca...." se va 
+
+h1: Reparacion, venta de repuestos y alquiler de montacargas a combustion, 
+electricos, estibadores manuales y electricos
+
+Organizar navbar con el diseño de marca
+
+Alquiler, reparacion y soporte..... se va
+
+Cambiar metricas: 
++14 años operando
+Respuesta oportuna: 4hr
+equipos atendidos
+reemplazar 24/7 evitar comprmisos inecesarios 
+
+Los clientes no se ven bien: 
+- tecnoquimicas
+- tecnofar 
+- La francol
+- Allers
+- Lito
+- Duana y compañia 
+- ASHE
+- Ladrillera la samaritana 
+
+Seccion 2: Que hacemos
+Utilizar otro color, no unicamente blanco y negro (ver colores de marca)
+
+(cambiar) Cubrimos el ciclo completo: Quitarlo
+(cambiar) reparacion de montacargas: Diagnostico y reparación especializado con herramientas (de ultima tecnologia), tecnicos certificados
+(cambiar) Venta de repuestos: Contamos con stock de repuestos para todas las marcas
+(cambiar) Venta de repuestos 2: Importadores directos de repuestos para montacargas en todas las marcas, distribuidores de baterias de traccion y cargadores
+(cambiar) Mantenimiento preventivo: Contamos con planes mensuales, por horas, hoja de vida para cada equipo
+(cambiar) soporte tecnico: quitar 24/7
+(cambiar) Estibadores electricos: Atendemos montacargas a combustion, electricos, montacargas electricos y manuales, en todas las marcas incluyendo chinas.
+
+Seción 3: POR QUÉ ELEGIRNOS
+(Quitar) bitacora, operarios con licencia y servicio en todo el valle del cauca 
+(cambiar) tecnicos certificados. (dejarlo así)
+(cambiar) repuestos originales: Repuestos OEM
+Hacen parte de las caracterisitcas de ellos como empresa: Eficacia, eficiencia y transparencia en nuestras labores
+
+Quitar las metricas en esta seccion y dejarla solo en 1 (hero o seccion 3)
+
+Seccion 4:NUESTRO EQUIPO
+Primero poner la seccion de soporte tecnico antes que la de nuestro equipo
+
+Dejarlas directamente a color
+dejar la ultima foto (michael apretando un tornillo) 
+primera columna la ultima
+cuarta columna ultima foto (michael y samir) 
+
+seccion 5: SOPORTE TÉCNICO
+Primero poner la seccion de soporte tecnico antes que la de nuestro equipo
+herramienta de diagnostico: 
+- torquimetro solo abierto (pagina 5), evitar imagenes con ruido de ambiente. 
+- Poner las imagenes de los computadores con los escaners 
+dejar imagen inferior y superior izquierda y superior derecha de la pagina 7
+dejar 1 sola imagen de la caja verde de la pagina 4, evitar ruido de ambiente 
+dejar imagen derecha superior de la pagina 6 
+dejar inferior izquierda de la pagina 2 (se debe ver más grande (completa))
+
+repuestos: 
+Dejar imagen inferior izquierda, superior derecha pagina 1
+Dejar imagen parte derecha inferior pagina 2
+
+seccion 6:  
+Poner fotos de los montacargas que se han atendido
+quitar flota lista para operar hoy mismo, más bien poner algo alusivo a los equipos
+que se han atendido 
+
+footer: 
+(Dejar) aliados estrategicos en soluciones para equipos de manejo de materiales.
+
+(quitar) linea de operacion 24/7
+al primer numero dejar icono de whatsapp, igual que el segundo numero
+#2 numero: 310 4054938 (numero de la oficina) 
+
+cra 11 #45-36 (cambiar direccion)
+horarios de trabajo: 8:00am - 5:30pm 
+sabado:  8:00am - 12:00m 
+
+NIT quitarlo
+
+dejar solamente instagram 
