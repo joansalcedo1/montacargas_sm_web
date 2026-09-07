@@ -96,5 +96,11 @@ const Ico = {
       <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm6 0h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95C20.5 8.75 21 11 21 14.1V21h-4v-6.1c0-1.45-.03-3.32-2.02-3.32-2.02 0-2.33 1.58-2.33 3.21V21H9V9Z"/>
     </svg>
   ),
+  Location: (p) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter" {...p}>
+      <path d="M12 22 L17.93 12.76A7 7 0 1 0 6.07 12.76Z"/>
+      <circle cx="12" cy="9" r="3.5"/>
+    </svg>
+  ),
 };
 window.Ico = Ico;

@@ -13,7 +13,7 @@ function Services({ accent }) {
 
   const items = [
 
-    { i: 'Wrench', t: 'Reparación de montacargas', d: 'Diagnostico y reparación especializado con herramientas de ultima tecnologia. Técnicos certificados', tag: '01' },
+    { i: 'Wrench', t: 'Reparación de montacargas', d: 'Atención a montacargas eléctricos y a combustión con tecnología de punta y técnicos certificados.', tag: '01' },
 
     { i: 'Box', t: 'Venta de repuestos', d: 'Contamos con un amplio stock de repuestos para todas las marcas', tag: '02' },
 
@@ -563,7 +563,7 @@ function Footer({ accent }) {
 
               {[
 
-                { I: Icon.Insta, href: '#', l: 'Instagram' },
+                { I: Icon.Insta, href: 'https://www.instagram.com/estibadores.y.montacargas_sm', l: 'Instagram' },
 
               ].map((s, i) => (
 
@@ -591,7 +591,10 @@ function Footer({ accent }) {
 
               <li className="flex items-start gap-3"><Icon.Wa className="w-4 h-4 mt-0.5 text-amber shrink-0" /><span>+57 310 4054938</span></li>
 
-              <li className="flex items-start gap-3"><Icon.Mail className="w-4 h-4 mt-0.5 text-amber shrink-0" /><span><a href="mailto:comercial@sm-montacargas.co">comercial@sm-montacargas.co</a><br /><span className="text-bone/50 text-[12px]">Cotizaciones &amp; soporte</span></span></li>
+              <li className="flex items-start gap-3"><Icon.Location className="w-4 h-4 mt-0.5 text-amber shrink-0" /><span>Cali, Colombia</span></li>
+
+
+              <li className="flex items-start gap-3"><Icon.Mail className="w-4 h-4 mt-0.5 text-amber shrink-0" /><span><a href="mailto:ventas@estibadoresymontacargassm.com">ventas@estibadoresymontacargassm.com</a><br /><span className="text-bone/50 text-[12px]">Cotizaciones &amp; soporte</span></span></li>
 
               <li className="flex items-start gap-3"><Icon.Clock className="w-4 h-4 mt-0.5 text-amber shrink-0" />
 
@@ -670,9 +673,11 @@ Object.assign(window, { Services, WhyUs, Gallery, CTA, Footer });
 function WorkInAction({ accent }) {
 
   const photos = [
-    { id: '27052026-DSC04468', src: 'editadas - personas/27052026-DSC04468_resultado_resultado.webp', alt: 'Registro de mantenimiento: 27052026-DSC04468' },
     { id: 'reparando_5', src: 'editadas - personas/reparando_5_resultado_resultado.webp', alt: 'Registro de mantenimiento: reparando_5' },
     { id: 'reparando_8', src: 'editadas - personas/reparando_8_resultado_resultado.webp', alt: 'Registro de mantenimiento: reparando_8' },
+    { id: 'reparando_1', src: 'editadas - personas/reparando_1_resultado_resultado.webp', alt: 'Registro de mantenimiento: reparando_1' },
+    { id: 'reparando_2', src: 'editadas - personas/reparando_2_resultado_resultado.webp', alt: 'Registro de mantenimiento: reparando_2' },
+    { id: 'reparando_3', src: 'editadas - personas/reparando_3_resultado_resultado.webp', alt: 'Registro de mantenimiento: reparando_3' }
   ];
 
   const marcas = [

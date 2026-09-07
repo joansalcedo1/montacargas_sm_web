@@ -78,7 +78,6 @@ function Nav({ accent }) {
     ['Nosotros', '#nosotros'],
     ['Galería', '#trabajo'],
     ['Repuestos', '#herramientas'],
-    ['Equipos', '#equipos'],
     ['Contacto', '#contacto'],
   ];
 
@@ -245,7 +244,7 @@ function Hero({ accent, title, sub, showTicker = true }) {
                 <div key={i} className="flex items-center gap-3 pr-3">
                   {[
                     'Tecnoquímicas', 'Tecnofar', 'LaFrancol', 'Allers',
-                    'Lito', 'Duana y Compañía', 'ASHE', 'Ladrillera La Samaritana'
+                    'Lito', 'Duana y Compañía', 'ASHE', 'Ladrillera La Samaritana', 'crown','Jungheinrich', 'Linde'
                   ].map((name) => (
                     <span key={`${i}-${name}`} className="inline-flex items-center gap-3">
                       <span className="inline-flex items-center px-4 py-2 border border-bone/20 bg-bone/5 font-head text-xl tracking-wide text-bone uppercase">
