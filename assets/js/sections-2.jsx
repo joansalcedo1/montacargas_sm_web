@@ -689,6 +689,7 @@ function WorkInAction({ accent }) {
     'Nissan',
     'Clark',
     'Toyota',
+    'crown','Jungheinrich', 'Linde',
     'Todas las marcas chinas'
   ];
 
@@ -802,6 +803,19 @@ const TOOLS_CATEGORIES = [
 // A handful of old tire photos don't follow the "tires_..." naming — list
 // their exact ids here so they still show up under "Llantas Industriales".
 const TIRES_LEGACY_IDS = ['27052026-DSC04468', '27052026-DSC04499'];
+const TOOLS_CUSTOMIZATION_KEY = 'sm-tools-parts-customization';
+
+function readToolsCustomization() {
+  try {
+    return JSON.parse(window.localStorage.getItem(TOOLS_CUSTOMIZATION_KEY) || '{}');
+  } catch (error) {
+    return {};
+  }
+}
+
+function writeToolsCustomization(customization) {
+  window.localStorage.setItem(TOOLS_CUSTOMIZATION_KEY, JSON.stringify(customization));
+}
 
 function belongsToCategory(resourceId, category) {
   if (category.id === 'tires' && TIRES_LEGACY_IDS.includes(resourceId)) return true;
@@ -813,12 +827,26 @@ function belongsToCategory(resourceId, category) {
 // so "parts_2" comes before "parts_10" (plain alphabetical sort wouldn't).
 function getCategoryPhotos(category) {
   const allResources = window.__resources || {};
+  const customization = readToolsCustomization();
+  const hiddenPhotos = (customization.hidden && customization.hidden[category.id]) || [];
 
   const photos = Object.keys(allResources)
     .filter(id => belongsToCategory(id, category))
+    .filter(id => !hiddenPhotos.includes(id))
     .map(id => ({ id, path: allResources[id] }));
 
-  return photos.sort((a, b) => {
+  const uploads = (customization.uploads && customization.uploads[category.id]) || [];
+  const savedOrder = (customization.order && customization.order[category.id]) || [];
+  const availablePhotos = [...photos, ...uploads];
+
+  return availablePhotos.sort((a, b) => {
+    const aPosition = savedOrder.indexOf(a.id);
+    const bPosition = savedOrder.indexOf(b.id);
+    if (aPosition !== -1 || bPosition !== -1) {
+      if (aPosition === -1) return 1;
+      if (bPosition === -1) return -1;
+      return aPosition - bPosition;
+    }
     const aNumber = parseInt(a.id.match(/\d+/), 10);
     const bNumber = parseInt(b.id.match(/\d+/), 10);
     if (Number.isNaN(aNumber) || Number.isNaN(bNumber)) return a.id.localeCompare(b.id);
@@ -833,13 +861,17 @@ function ToolsParts({ accent }) {
   const [active, setActive] = useState2('diag');
   const [page, setPage] = useState2(0);
   const [selectedImage, setSelectedImage] = useState2(null);
+  const [editMode, setEditMode] = useState2(false);
+  const [draggedPhoto, setDraggedPhoto] = useState2(null);
+  const [customizationVersion, setCustomizationVersion] = useState2(0);
 
   const activeCategory = TOOLS_CATEGORIES.find(c => c.id === active);
   const photos = getCategoryPhotos(activeCategory);
 
   const pageCount = Math.max(1, Math.ceil(photos.length / PHOTOS_PER_PAGE));
   const visiblePhotos = photos.slice(page * PHOTOS_PER_PAGE, page * PHOTOS_PER_PAGE + PHOTOS_PER_PAGE);
-  const photoCount = visiblePhotos.length;
+  const organizerPhotos = editMode ? photos : visiblePhotos;
+  const photoCount = organizerPhotos.length;
   const gridColsClass =
     photoCount <= 1 ? 'grid-cols-1' :
       photoCount === 2 ? 'grid-cols-2' :
@@ -849,6 +881,79 @@ function ToolsParts({ accent }) {
   function selectCategory(categoryId) {
     setActive(categoryId);
     setPage(0);
+  }
+
+  function refreshCustomization() {
+    setCustomizationVersion(customizationVersion + 1);
+    setPage(0);
+  }
+
+  function persistPhotoOrder(nextPhotos) {
+    const customization = readToolsCustomization();
+    customization.order = customization.order || {};
+    customization.order[active] = nextPhotos.map(photo => photo.id);
+    writeToolsCustomization(customization);
+    refreshCustomization();
+  }
+
+  function movePhoto(photoId, targetId) {
+    if (!photoId || !targetId || photoId === targetId) return;
+    const nextPhotos = [...photos];
+    const sourceIndex = nextPhotos.findIndex(photo => photo.id === photoId);
+    const targetIndex = nextPhotos.findIndex(photo => photo.id === targetId);
+    if (sourceIndex === -1 || targetIndex === -1) return;
+    const [movedPhoto] = nextPhotos.splice(sourceIndex, 1);
+    nextPhotos.splice(targetIndex, 0, movedPhoto);
+    persistPhotoOrder(nextPhotos);
+  }
+
+  function handleUpload(event) {
+    const files = Array.from(event.target.files || []).filter(file => file.type.startsWith('image/'));
+    if (!files.length) return;
+    const customization = readToolsCustomization();
+    customization.uploads = customization.uploads || {};
+    customization.uploads[active] = customization.uploads[active] || [];
+    let pending = files.length;
+
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        customization.uploads[active].push({
+          id: `upload_${Date.now()}_${Math.random().toString(36).slice(2)}`,
+          path: reader.result,
+        });
+        pending -= 1;
+        if (pending === 0) {
+          writeToolsCustomization(customization);
+          refreshCustomization();
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+    event.target.value = '';
+  }
+
+  function removePhoto(photoId) {
+    const customization = readToolsCustomization();
+    customization.uploads = customization.uploads || {};
+    customization.uploads[active] = (customization.uploads[active] || []).filter(photo => photo.id !== photoId);
+    customization.hidden = customization.hidden || {};
+    if (!photoId.startsWith('upload_')) {
+      customization.hidden[active] = [...(customization.hidden[active] || []), photoId];
+    }
+    customization.order = customization.order || {};
+    customization.order[active] = photos.filter(photo => photo.id !== photoId).map(photo => photo.id);
+    writeToolsCustomization(customization);
+    refreshCustomization();
+  }
+
+  function resetCategory() {
+    const customization = readToolsCustomization();
+    if (customization.order) delete customization.order[active];
+    if (customization.uploads) delete customization.uploads[active];
+    if (customization.hidden) delete customization.hidden[active];
+    writeToolsCustomization(customization);
+    refreshCustomization();
   }
 
   return (
@@ -923,16 +1028,43 @@ function ToolsParts({ accent }) {
 
           <div className="lg:sticky lg:top-32">
 
+            <div className="mb-5 flex flex-wrap items-center justify-between gap-3 border border-ink/10 bg-bone p-3">
+              <div className="font-mono text-[10px] tracking-widest uppercase text-ink/60">
+                {editMode ? 'Arrastre las fotos para reordenarlas' : 'Orden actual de la categoría'}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <button type="button" onClick={() => setEditMode(!editMode)} className="border border-ink/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-wider text-ink hover:bg-ink hover:text-bone transition-colors">
+                  {editMode ? 'Listo' : 'Organizar imágenes'}
+                </button>
+                {editMode && (
+                  <>
+                    <label className="cursor-pointer border border-amber bg-amber px-3 py-2 text-[11px] font-semibold uppercase tracking-wider text-ink hover:bg-amber/80 transition-colors">
+                      Agregar fotos
+                      <input type="file" accept="image/*" multiple className="hidden" onChange={handleUpload} />
+                    </label>
+                    <button type="button" onClick={resetCategory} className="border border-ink/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-wider text-ink/60 hover:border-ink hover:text-ink transition-colors">
+                      Restaurar
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+
             <div className={`grid gap-4 ${gridColsClass}`}>
 
-              {visiblePhotos.map((photo, i) => (
+              {organizerPhotos.map((photo, i) => (
 
                 <Reveal key={`${active}-${photo.id}`} delay={(i + 1) * 50}>
 
                   <button
                     type="button"
+                    draggable={editMode}
+                    onDragStart={() => setDraggedPhoto(photo.id)}
+                    onDragOver={event => event.preventDefault()}
+                    onDrop={() => { movePhoto(draggedPhoto, photo.id); setDraggedPhoto(null); }}
+                    onDragEnd={() => setDraggedPhoto(null)}
                     onClick={() => setSelectedImage(photo.path)}
-                    className="group relative w-full aspect-[3/4] overflow-hidden bg-bone border border-ink/10 flex flex-col items-center justify-center text-center animate-in fade-in zoom-in duration-500"
+                    className={`group relative w-full aspect-[3/4] overflow-hidden bg-bone border flex flex-col items-center justify-center text-center animate-in fade-in zoom-in duration-500 ${editMode ? 'cursor-grab border-amber/60' : 'border-ink/10'}`}
                   >
 
                     <img
@@ -955,6 +1087,19 @@ function ToolsParts({ accent }) {
 
                     </div>
 
+                    {editMode && (
+                      <span
+                        role="button"
+                        tabIndex="0"
+                        onClick={event => { event.stopPropagation(); removePhoto(photo.id); }}
+                        onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); event.stopPropagation(); removePhoto(photo.id); } }}
+                        className="absolute right-2 top-2 z-10 flex h-8 w-8 items-center justify-center bg-ink text-bone text-sm hover:bg-amber hover:text-ink"
+                        aria-label="Quitar imagen"
+                      >
+                        x
+                      </span>
+                    )}
+
                   </button>
 
                 </Reveal>
@@ -969,7 +1114,7 @@ function ToolsParts({ accent }) {
               )}
             </div>
 
-            <div className="mt-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            {!editMode && <div className="mt-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div className="inline-flex items-center gap-2">
                 <button type="button" disabled={page <= 0} onClick={() => setPage(Math.max(page - 1, 0))} className={`px-4 py-3 text-sm font-semibold uppercase tracking-[0.2em] transition border ${page <= 0 ? 'border-ink/10 bg-ink/5 text-ink/40 cursor-not-allowed' : 'border-ink/20 bg-bone text-ink hover:border-ink'}`}>
                   Anterior
@@ -981,7 +1126,7 @@ function ToolsParts({ accent }) {
               <div className="font-mono text-[11px] tracking-widest uppercase text-ink/70">
                 Página {page + 1} de {pageCount}
               </div>
-            </div>
+            </div>}
 
             {selectedImage && (
               <div className="fixed inset-0 z-[70] flex items-center justify-center bg-ink/85 px-4 py-6" onClick={() => setSelectedImage(null)}>
