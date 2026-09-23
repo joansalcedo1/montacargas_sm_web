@@ -1028,7 +1028,7 @@ function ToolsParts({ accent }) {
 
           <div className="lg:sticky lg:top-32">
 
-            <div className="mb-5 flex flex-wrap items-center justify-between gap-3 border border-ink/10 bg-bone p-3">
+            {/*<div className="mb-5 flex flex-wrap items-center justify-between gap-3 border border-ink/10 bg-bone p-3">
               <div className="font-mono text-[10px] tracking-widest uppercase text-ink/60">
                 {editMode ? 'Arrastre las fotos para reordenarlas' : 'Orden actual de la categoría'}
               </div>
@@ -1048,7 +1048,7 @@ function ToolsParts({ accent }) {
                   </>
                 )}
               </div>
-            </div>
+            </div>*/}
 
             <div className={`grid gap-4 ${gridColsClass}`}>
 

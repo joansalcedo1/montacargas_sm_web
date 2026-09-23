@@ -13,6 +13,42 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
 }/*EDITMODE-END*/;
 
 const ACCENT_OPTIONS = ['#f7c940', '#1A283C', '#243982', '#ffffff'];
+const { Insta, Wa } = window.Ico;
+
+function FloatingSocialLinks() {
+  const links = [
+    {
+      label: 'Instagram',
+      href: 'https://www.instagram.com/estibadores.y.montacargas_sm',
+      Icon: Insta,
+      className: 'rounded-full bg-[#E1306C] hover:bg-[#c9275d]',
+    },
+    {
+      label: 'WhatsApp',
+      href: 'https://wa.me/573108247098',
+      Icon: Wa,
+      className: 'rounded-full bg-[#25D366] hover:bg-[#1fb957]',
+    },
+  ];
+
+  return (
+    <div className="fixed right-4 top-1/2 z-50 flex -translate-y-1/2 flex-col gap-3">
+      {links.map(({ label, href, Icon, className }) => (
+        <a
+          key={label}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Abrir ${label}`}
+          title={label}
+          className={`grid h-12 w-12 place-items-center text-white shadow-lg transition-transform duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-ink ${className}`}
+        >
+          <Icon className="h-6 w-6" />
+        </a>
+      ))}
+    </div>
+  );
+}
 
 function App() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
@@ -32,6 +68,7 @@ function App() {
       <WorkInAction accent={t.accent}/>
       <CTA accent={t.accent}/>
       <Footer accent={t.accent}/>
+      <FloatingSocialLinks />
 
       <TweaksPanel title="Tweaks" subtitle="Estibadores SM · landing">
         <TweakSection title="Color de acento">
