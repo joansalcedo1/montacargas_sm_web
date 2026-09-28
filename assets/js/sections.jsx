@@ -229,7 +229,7 @@ function Hero({ accent, title, sub, showTicker = true }) {
       {showTicker && (
         <div className="relative border-t border-bone/10 overflow-hidden">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-10 pt-5 flex items-center gap-4">
-            <span className="font-mono text-[10px] tracking-[0.3em] shrink-0" style={{ color: accent }}>NUESTROS CLIENTES</span>
+            <span className="font-mono text-[10px] tracking-[0.3em] shrink-0" style={{ color: accent }}>AlGUNOS DE NUESTROS CLIENTES</span>
             <span className="h-px flex-1 bg-bone/15"></span>
           </div>
           <div className="relative py-6">
