@@ -650,7 +650,13 @@ function Footer({ accent }) {
 
           <span>© 2026 ESTIBADORES Y MONTACARGAS SM</span>
 
-          <span>POLÍTICA DE PRIVACIDAD · TÉRMINOS · TRATAMIENTO DE DATOS</span>
+          <span className="flex flex-wrap items-center gap-2">
+            <a href="politica-de-privacidad.html" className="hover:text-amber transition-colors">POLÍTICA DE PRIVACIDAD</a>
+            <span>·</span>
+            <a href="terminos-y-condiciones.html" className="hover:text-amber transition-colors">TÉRMINOS</a>
+            <span>·</span>
+            <a href="tratamiento-de-datos.html" className="hover:text-amber transition-colors">TRATAMIENTO DE DATOS</a>
+          </span>
 
         </div>
 
